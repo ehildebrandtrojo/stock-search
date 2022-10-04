@@ -76,7 +76,7 @@
       </svg>
     </button>
   {/if}
-  <p class="basis-2/12 text-center 2xl:text-xl">{symbol}</p>
+  <button class="basis-2/12" on:click={() => selected_symbols.set([symbol])}>{symbol}</button>
   <div class="basis-2/12 flex flex-col">
     <p class="text-center">${data.prices.at(-1)}</p>
     <p class="text-center text-xs">Vol {round_to_two(data.vols.at(-2))}K</p>

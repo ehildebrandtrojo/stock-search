@@ -23,11 +23,13 @@
   // Returns date as yyyy-mm-dd hh:MM:ss string
   const date_string = date => new Date(date.toString().split('GMT')[0]+' UTC').toISOString().split('.')[0].replace("T", " ");
 
-  const a_week_ago = new Date();
-  a_week_ago.setDate(a_week_ago.getDate() - 5);
+  const start_ago = new Date();
+  start_ago.setDate(start_ago.getDate() - 5);
+  const end_ago = new Date();
+  end_ago.setDate(end_ago.getDate() - 4);
   
-  let start_date = date_string(a_week_ago);
-  let end_date = date_string(new Date());
+  let start_date = date_string(start_ago);
+  let end_date = date_string(end_ago);
 
   // Sliders
   let minprice, maxprice, minvol, maxvol;
