@@ -2,7 +2,7 @@
   import daisyuiColors from "daisyui/src/colors/themes.js";
   import { Scatter } from "svelte-chartjs";
   import {
-    Chart as ChartJS,
+    Chart,
     LineElement,
     PointElement,
     ScatterController,
@@ -19,7 +19,7 @@
 
   export let chart_data;
 
-  ChartJS.register(
+  Chart.register(
     LineElement,
     PointElement,
     ScatterController,

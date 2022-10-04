@@ -1,7 +1,7 @@
 <script>
   import { Line } from "svelte-chartjs";
   import {
-    Chart as ChartJS,
+    Chart,
     LineElement,
     PointElement,
     LineController,
@@ -15,7 +15,7 @@
   export let chart_data;
   let data_params, options_params;
 
-  ChartJS.register(
+  Chart.register(
     LineElement,
     PointElement,
     LineController,
