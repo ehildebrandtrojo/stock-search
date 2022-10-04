@@ -185,10 +185,11 @@
           range
           float
           prefix="$"
-          step={1}
+          step={50}
           min={minprice}
           max={maxprice}
           bind:values={price_slider}
+          springValues={{stiffness: 1, damping: 1}}
         />
       </div>
       <div class="basis-1/4 self-center flex-col mr-2">
@@ -197,10 +198,11 @@
           range
           float
           suffix=""
-          step={10}
+          step={100}
           min={minvol}
           max={maxvol}
           bind:values={vol_slider}
+          springValues={{stiffness: 1, damping: 1}}
         />
       </div>
     </div>
