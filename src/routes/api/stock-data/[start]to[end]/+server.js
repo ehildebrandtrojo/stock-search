@@ -17,8 +17,6 @@ export async function GET({ params }) {
   }).sort({time : 1}).toArray();
   client.close();
   
-  console.log('Preprocessing Data')
-
   let chart_data = {}
   for (const {symbol, time, data} of db_data) {
     const prev = symbol in chart_data ? chart_data[symbol] : { times : [], prices : [], vols : []}
@@ -28,8 +26,6 @@ export async function GET({ params }) {
   // Sort data based on profit loss
   const profitloss = (prices) => (prices.at(-1) - prices.at(0)) / prices.at(0);
   chart_data = Object.fromEntries(Object.entries(chart_data).sort((a, b) => profitloss(b.at(1).prices) - profitloss(a.at(1).prices)));
-
-  console.log('Done')
   
   return json(chart_data)
 }
