@@ -10,9 +10,9 @@
   let search_bar = "";
   let data = {
     '' : {
-        times : [0],
-        prices : [0],
-        vols : [0],
+        times : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        prices : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        vols : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     },
   };
 
@@ -40,9 +40,17 @@
   async function fetch_data() {
     const to_utc = date => Date.parse(new Date(date.replace(" ", "T")).toISOString());
     fetching_data = true;
-		const res = await fetch(`/api/stock-data/${to_utc(start_date)}to${to_utc(end_date)}`);
+		await fetch(`/api/stock-data/${to_utc(start_date)}to${to_utc(end_date)}`).then(response => {
+      if (response.status >= 400 && response.status < 600) {
+        throw new Error("Bad response from server");
+      }
+      return response;
+    }).then(returnResponse => {
+      returnResponse.json().then(stock_data => data = stock_data);
+    }).catch((error) => {
+      console.log(error)
+    });
     fetching_data = false;
-    data = await res.json();
   }
 
   // Returns true if a ticker should be displayed on the RHS
@@ -58,8 +66,8 @@
       data.prices.at(-1) <= price_slider.at(1) &&
       price_slider.at(0) <= data.prices.at(-1);
     const between_vols =
-      data.vols.at(-1) <= vol_slider.at(1) &&
-      vol_slider.at(0) <= data.vols.at(-1);
+      data.vols.at(-10) <= vol_slider.at(1) &&
+      vol_slider.at(0) <= data.vols.at(-10);
     const in_favorites = $favorite_symbols.includes(symbol);
 
     return (
@@ -76,19 +84,19 @@
     const last_prices = Object.values(data).map((ticker) =>
       ticker.prices.at(-1)
     );
-    const last_vols = Object.values(data).map((ticker) => ticker.vols.at(-1));
+    const last_vols = Object.values(data).map((ticker) => ticker.vols.at(-10));
     return [minmax(last_prices), minmax(last_vols)];
   }
 
   // Load past week's data by default
   onMount(async () => {
 	  await fetch_data();
-    // Update sliders  to min/max of data
-    [price_slider, vol_slider] = update_minmax(data);
 	});
 
   // Update min/max if data changes
   $: [[minprice, maxprice], [minvol, maxvol]] = update_minmax(data);
+  // Update sliders  to min/max of data
+  $: [price_slider, vol_slider] = [[minprice, maxprice], [minvol, maxvol]]
 </script>
 
 <div class="w-screen h-screen flex flex-col">
@@ -188,8 +196,8 @@
         <RangeSlider
           range
           float
-          suffix="M"
-          step={1}
+          suffix=""
+          step={10}
           min={minvol}
           max={maxvol}
           bind:values={vol_slider}

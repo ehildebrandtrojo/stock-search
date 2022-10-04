@@ -1,6 +1,5 @@
 import { error, json } from '@sveltejs/kit';
 import { MongoClient, ServerApiVersion } from 'mongodb';
-import { stocks } from './stocks';
 
 export async function GET({ params }) {
 	// Connect to client
@@ -9,7 +8,9 @@ export async function GET({ params }) {
 	await client.connect();
 
   let data = []
-  for (const symbol of stocks) {
+  const collections = await client.db("stock_data").listCollections().toArray()
+  const collection_names = collections.map(({ name }) => name).slice(0, 101);
+  for (const symbol of collection_names) {
     const collection = client.db("stock_data").collection(symbol);
     // Get data between two dates sorted from earliest to latest
     const symbol_data = await collection.find({
@@ -18,14 +19,16 @@ export async function GET({ params }) {
         $lte: parseInt(params.end)
       }
     }).sort({_id : 1}).toArray();
-  
+
     let [times, prices, vols] = [[], [], []];
     for (const { _id, data } of symbol_data) {
       times.push(_id);
       prices.push(data.at(0));
-      vols.push(data.at(1));
+      vols.push(data.at(1) / 1000);
     }
     data.push([symbol, {times, prices, vols}])
+
+    console.log('Finished', symbol)
   }
   client.close();
 

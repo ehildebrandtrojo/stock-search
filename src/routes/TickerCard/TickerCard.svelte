@@ -79,7 +79,7 @@
   <p class="basis-2/12 text-center 2xl:text-xl">{symbol}</p>
   <div class="basis-2/12 flex flex-col">
     <p class="text-center">${data.prices.at(-1)}</p>
-    <p class="text-center text-xs">Vol {round_to_two(data.vols.at(-1))}M</p>
+    <p class="text-center text-xs">Vol {round_to_two(data.vols.at(-10))}K</p>
   </div>
   <div class="basis-4/12 w-1 h-20 p-2">
     <TickerCardChart chart_data={prices_data} />
