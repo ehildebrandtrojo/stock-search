@@ -10,9 +10,9 @@
   let search_bar = "";
   let data = {
     '' : {
-        times : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        prices : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        vols : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        times : [0, 0],
+        prices : [0, 0],
+        vols : [0, 0],
     },
   };
 
@@ -61,13 +61,22 @@
     vol_slider,
     show_favorites
   ) {
-    const in_search_bar = symbol.includes(search_bar.toUpperCase());
-    const between_prices =
-      data.prices.at(-1) <= price_slider.at(1) &&
-      price_slider.at(0) <= data.prices.at(-1);
-    const between_vols =
-      data.vols.at(-10) <= vol_slider.at(1) &&
-      vol_slider.at(0) <= data.vols.at(-10);
+    let in_search_bar, between_prices, between_vols;
+
+    if (search_bar.startsWith('\"') && search_bar.endsWith('\"')) {
+      in_search_bar = symbol === search_bar.slice(1, -1).toUpperCase();
+    } else {
+      in_search_bar = symbol.includes(search_bar.toUpperCase());
+    }
+
+    if (!search_bar.startsWith('!')) {
+      between_prices = data.prices.at(-2) <= price_slider.at(1) && price_slider.at(0) <= data.prices.at(-1);
+      between_vols = data.vols.at(-2) <= vol_slider.at(1) && vol_slider.at(0) <= data.vols.at(-2);
+    } else {
+      in_search_bar = symbol.includes(search_bar.slice(1).toUpperCase());
+      [between_prices, between_vols] = [true, true]
+    }
+    
     const in_favorites = $favorite_symbols.includes(symbol);
 
     return (
@@ -84,7 +93,7 @@
     const last_prices = Object.values(data).map((ticker) =>
       ticker.prices.at(-1)
     );
-    const last_vols = Object.values(data).map((ticker) => ticker.vols.at(-10));
+    const last_vols = Object.values(data).map((ticker) => ticker.vols.at(-2));
     return [minmax(last_prices), minmax(last_vols)];
   }
 
@@ -96,7 +105,7 @@
   // Update min/max if data changes
   $: [[minprice, maxprice], [minvol, maxvol]] = update_minmax(data);
   // Update sliders  to min/max of data
-  $: [price_slider, vol_slider] = [[minprice, maxprice], [minvol, maxvol]]
+  $: [price_slider, vol_slider] = [[minprice, maxprice], [minvol, maxvol]];
 </script>
 
 <div class="w-screen h-screen flex flex-col">
@@ -185,7 +194,7 @@
           range
           float
           prefix="$"
-          step={50}
+          step={75}
           min={minprice}
           max={maxprice}
           bind:values={price_slider}
@@ -193,12 +202,12 @@
         />
       </div>
       <div class="basis-1/4 self-center flex-col mr-2">
-        <p class="text-center">Volume</p>
+        <p class="text-center">Volume (K)</p>
         <RangeSlider
           range
           float
           suffix=""
-          step={100}
+          step={150}
           min={minvol}
           max={maxvol}
           bind:values={vol_slider}
