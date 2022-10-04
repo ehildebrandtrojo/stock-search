@@ -1,5 +1,6 @@
 import { error, json } from '@sveltejs/kit';
 import { MongoClient, ServerApiVersion } from 'mongodb';
+import { stocks } from './stocks';
 
 export async function GET({ params }) {
 	// Connect to client
@@ -8,7 +9,7 @@ export async function GET({ params }) {
 	await client.connect();
 
   let data = []
-  for (const symbol of ["AAPL", "MSFT"]) {
+  for (const symbol of stocks) {
     const collection = client.db("stock_data").collection(symbol);
     // Get data between two dates sorted from earliest to latest
     const symbol_data = await collection.find({
