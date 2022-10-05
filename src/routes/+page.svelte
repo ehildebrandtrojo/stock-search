@@ -46,7 +46,7 @@
       returnResponse.json().then(stock_data => {
         data = stock_data;
       }).catch((error) => {
-        console.log(error.slice(26, -1))
+        console.warn(error)
       });
     }).catch((error) => {
       console.log('Server Error', error)
