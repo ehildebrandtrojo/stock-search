@@ -28,8 +28,8 @@
   const end_ago = new Date();
   end_ago.setDate(end_ago.getDate() - 4);
   
-  let start_date = "2022-09-29 00:00" // date_string(start_ago);
-  let end_date = "2022-09-30 00:00" // date_string(end_ago);
+  let start_date = "2022-09-29 23:59" // date_string(start_ago);
+  let end_date = "2022-09-30 23:59" // date_string(end_ago);
 
   // Sliders
   let minprice, maxprice, minvol, maxvol;
@@ -161,6 +161,7 @@
           <SveltyPicker
             inputClasses="w-1/2 ds-form-control ds-input ds-input-bordered"
             theme="my-theme"
+            startDate="2022-04-01 00:00"
             todayBtn={false}
             clearBtn={false}
             format="yyyy-mm-dd hh:ii"

@@ -7,7 +7,7 @@ export async function GET({ params }) {
 	const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 	await client.connect();
 
-  const collection = client.db("stock_data").collection("daily_stock_data");
+  const collection = await client.db("stock_data").collection("daily_stock_data");
   // Get data between two dates sorted from earliest to latest
   const db_data = await collection.find({
     time: {
