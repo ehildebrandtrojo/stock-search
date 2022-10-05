@@ -257,6 +257,7 @@
                 simply press on the toggle next to the search bar
               </li>
             </ol>
+            <p></p>
           </article>
         </div>
       {:else}
