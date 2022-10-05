@@ -31,8 +31,6 @@ export async function GET({ params }) {
   // Sort data based on profit loss
   const profitloss = (prices) => (prices.at(-1) - prices.at(0)) / prices.at(0);
   chart_data = Object.fromEntries(Object.entries(chart_data).sort((a, b) => profitloss(b.at(1).prices) - profitloss(a.at(1).prices)));
-
-  console.log(chart_data)
   
   return json(chart_data)
 }

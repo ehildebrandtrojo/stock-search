@@ -42,7 +42,6 @@
   async function fetch_data() {
     const to_utc = date => Date.parse(new Date(date.replace(" ", "T")).toISOString());
     fetching_data = true;
-    console.log(`/api/stock-data/${to_utc(start_date)}to${to_utc(end_date)}`)
 		await fetch(`/api/stock-data/${to_utc(start_date)}to${to_utc(end_date)}`).then(returnResponse => {
       returnResponse.json().then(stock_data => {
         data = stock_data;
