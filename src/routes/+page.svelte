@@ -227,7 +227,7 @@
       {#if !$selected_symbols.length}
         <div class="flex justify-center">
           <article class="prose ds-prose 2xl:prose-lg">
-            <h2 class="text-center">Motivation</h2>
+            <h3 class="text-center">Motivation</h3>
             <p>
               This project started due to my frustrations when using other ticker search websites.
               I saw it as a great opportunity to learn web dev while incorporating ideas from my classes.
@@ -235,7 +235,7 @@
               This is why I plan on adding information about other investments (real estate, bonds, hedge funds, VC, etc),
               investment strategies, and dangerous behavioral biases to watch out for.
             </p>
-            <h2 class="text-center">Instructions</h2>
+            <h3 class="text-center">Instructions</h3>
             <ol>
               <li>
                 Select a start and end date using the calendar wiget at the top
@@ -257,7 +257,6 @@
                 simply press on the toggle next to the search bar
               </li>
             </ol>
-            <p></p>
           </article>
         </div>
       {:else}

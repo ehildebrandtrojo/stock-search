@@ -4,10 +4,10 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 export async function GET({ params }) {
 	// Connect to client
 	const uri = `mongodb+srv://user_1:SlDNHYeyzVGNgHxA@portfoliodashboardclust.cvksjhu.mongodb.net/?retryWrites=true&w=majority`;
-	const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+	const client = new MongoClient(uri);
 	await client.connect();
 
-  const collection = await client.db("stock_data").collection("daily_stock_data");
+  const collection = client.db("stock_data").collection("daily_stock_data");
   // Get data between two dates sorted from earliest to latest
   const db_data = await collection.find({
     time: {
