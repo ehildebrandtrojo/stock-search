@@ -18,7 +18,7 @@
 
   // Fetching
   let fetching_data = false;
-  let error = false;
+  let fetch_error = false;
 
   // Dates
   // Returns date as yyyy-mm-dd hh:MM:ss string
@@ -43,13 +43,13 @@
   async function fetch_data() {
     const to_utc = date => Date.parse(new Date(date.replace(" ", "T")).toISOString());
     fetching_data = true;
-    error = false;
+    fetch_error = false;
 		await fetch(`/api/stock-data/${to_utc(start_date)}to${to_utc(end_date)}`).then(returnResponse => {
       returnResponse.json().then(stock_data => {
         data = stock_data;
       }).catch((error) => {
-        error = true;
         console.warn(error)
+        fetch_error = true;
       });
     }).catch((error) => {
       console.log('Server Error', error)
@@ -192,7 +192,7 @@
                3.182m0-4.991v4.99" 
             />
           </svg>
-        {:else if error}
+        {:else if fetch_error}
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 fill-red-600">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
           </svg>
@@ -248,7 +248,7 @@
               </li>
               <li>
                 Press the refresh button to load the data from the server (~15s).
-                If the server connection is too long, Vercel, hosting company, will timeout the connection; try again by re-selecting
+                If the server connection is too long, Vercel (hosting company) will timeout the connection; try again by re-selecting
                 a smaller range of time and pressing the error icon
               </li>
               <li>
