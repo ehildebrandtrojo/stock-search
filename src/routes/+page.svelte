@@ -46,7 +46,7 @@
       returnResponse.json().then(stock_data => {
         data = stock_data;
       }).catch((error) => {
-        console.log('File Error', error)
+        console.log(error)
       });
     }).catch((error) => {
       console.log('Server Error', error)
