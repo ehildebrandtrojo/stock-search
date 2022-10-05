@@ -222,40 +222,42 @@
     </div>
   </div>
   <div class="grow overflow-y-auto flex flex-row">
-    <div class="grow w-1 rounded-3xl flex justify-center border-4 border-base-300 m-4 p-6">
+    <div class="grow w-1 rounded-3xl border-4 border-base-300 m-4 p-6">
       {#if !$selected_symbols.length}
-        <article class="prose ds-prose 2xl:prose-lg">
-          <h2 class="text-center">Motivation</h2>
-          <p>
-            This project started due to my frustrations when using other ticker search websites.
-            I saw it as a great opportunity to learn web dev while incorporating ideas from my classes.
-            My ultimate goal for the website is for it to be a place where people can learn about tried and true investment strategies.
-            This is why I plan on adding information about other investments (real estate, bonds, hedge funds, VC, etc),
-            investment strategies, and dangerous behavioral biases to watch out for.
-          </p>
-          <h2 class="text-center">Instructions</h2>
-          <ol>
-            <li>
-              Select a start and end date using the calendar wiget at the top
-            </li>
-            <li>
-              Press the refresh button to load the data from the server (~15s)
-            </li>
-            <li>
-              On the right you will see all available companies with their corresponding data
-            </li>
-            <li>
-              You can press on a company's name to plot it and use the plus sign to compare it with other companies
-            </li>
-            <li>
-              You can search for specific companies using the search bar or the price and volume sliders at the top
-            </li>
-            <li>
-              Finally, if there's a company you like, you can favorite by pressing on the star. To view your favorites
-              simply press on the toggle next to the search bar
-            </li>
-          </ol>
-        </article>
+        <div class="flex justify-center">
+          <article class="prose ds-prose 2xl:prose-lg">
+            <h2 class="text-center">Motivation</h2>
+            <p>
+              This project started due to my frustrations when using other ticker search websites.
+              I saw it as a great opportunity to learn web dev while incorporating ideas from my classes.
+              My ultimate goal for the website is for it to be a place where people can learn about tried and true investment strategies.
+              This is why I plan on adding information about other investments (real estate, bonds, hedge funds, VC, etc),
+              investment strategies, and dangerous behavioral biases to watch out for.
+            </p>
+            <h2 class="text-center">Instructions</h2>
+            <ol>
+              <li>
+                Select a start and end date using the calendar wiget at the top
+              </li>
+              <li>
+                Press the refresh button to load the data from the server (~15s)
+              </li>
+              <li>
+                On the right you will see all available companies with their corresponding data
+              </li>
+              <li>
+                You can press on a company's name to plot it and use the plus sign to compare it with other companies
+              </li>
+              <li>
+                You can search for specific companies using the search bar or the price and volume sliders at the top
+              </li>
+              <li>
+                Finally, if there's a company you like, you can favorite by pressing on the star. To view your favorites
+                simply press on the toggle next to the search bar
+              </li>
+            </ol>
+          </article>
+        </div>
       {:else}
         <TickerChart
           chart_data={Object.fromEntries(
