@@ -141,6 +141,7 @@
             inputClasses="w-1/2 ds-form-control ds-input ds-input-bordered"
             theme="my-theme"
             startDate="2022-04-01 00:00"
+            endDate={end_date}
             todayBtn={false}
             clearBtn={false}
             format="yyyy-mm-dd hh:ii"
@@ -166,6 +167,7 @@
             inputClasses="w-1/2 ds-form-control ds-input ds-input-bordered"
             theme="my-theme"
             startDate="2022-04-01 00:00"
+            endDate="2022-09-30 23:59"
             todayBtn={false}
             clearBtn={false}
             format="yyyy-mm-dd hh:ii"
@@ -235,7 +237,7 @@
         <div class="flex justify-center">
           <article class="prose ds-prose 2xl:prose-lg">
             <h3 class="text-center">Motivation</h3>
-            <p>
+            <p class="text-justify">
               This project started due to my frustrations when using other ticker search websites.
               I saw it as a great opportunity to learn web dev while incorporating ideas from my classes.
               My ultimate goal for the website is for it to be a place where people can learn about tried and true investment strategies.
@@ -250,7 +252,7 @@
               <li>
                 Press the refresh button to load the data from the server (~15s).
                 If the server connection is too long, Vercel (hosting company) will timeout the connection; try again by re-selecting
-                a smaller range of time and pressing the error icon
+                a smaller range of time and pressing the red error icon
               </li>
               <li>
                 On the right you will see all available companies with their corresponding data
