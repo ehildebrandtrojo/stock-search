@@ -28,8 +28,8 @@
   const end_ago = new Date();
   end_ago.setDate(end_ago.getDate() - 4);
   
-  let start_date = date_string(start_ago);
-  let end_date = date_string(end_ago);
+  let start_date = "2022-09-29 00:00" // date_string(start_ago);
+  let end_date = "2022-09-30 00:00" // date_string(end_ago);
 
   // Sliders
   let minprice, maxprice, minvol, maxvol;
@@ -136,6 +136,7 @@
           <SveltyPicker
             inputClasses="w-1/2 ds-form-control ds-input ds-input-bordered"
             theme="my-theme"
+            startDate="2022-04-01 00:00"
             todayBtn={false}
             clearBtn={false}
             format="yyyy-mm-dd hh:ii"
@@ -180,11 +181,14 @@
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              d="M12 9.75v6.75m0 0l-3-3m3 3l3-3m-8.25 6a4.5 4.5 0 
-                01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 
-                3.848A3.752 3.752 0 0118 19.5H6.75z"
+              d="M16.023 9.348h4.992v-.001M2.985
+               19.644v-4.992m0 0h4.992m-4.993 
+               0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 
+               9.865a8.25 8.25 0 0113.803-3.7l3.181 
+               3.182m0-4.991v4.99" 
             />
           </svg>
+        
         {:else}
           <Moon color="hsl(var(--nc))" size="24" unit="px"/>
         {/if}
@@ -195,7 +199,7 @@
           range
           float
           prefix="$"
-          step={75}
+          step={400}
           min={minprice}
           max={maxprice}
           bind:values={price_slider}
@@ -208,7 +212,7 @@
           range
           float
           suffix=""
-          step={150}
+          step={300}
           min={minvol}
           max={maxvol}
           bind:values={vol_slider}
@@ -218,23 +222,39 @@
     </div>
   </div>
   <div class="grow overflow-y-auto flex flex-row">
-    <div class="grow w-1 rounded-3xl border-4 border-base-300 m-4 p-6">
+    <div class="grow w-1 rounded-3xl flex justify-center border-4 border-base-300 m-4 p-6">
       {#if !$selected_symbols.length}
         <article class="prose ds-prose 2xl:prose-lg">
-          <h2>Instructions</h2>
-          <ul>
+          <h2 class="text-center">Motivation</h2>
+          <p>
+            This project started due to my frustrations when using other ticker search websites.
+            I saw it as a great opportunity to learn web dev while incorporating ideas from my classes.
+            My ultimate goal for the website is for it to be a place where people can learn about tried and true investment strategies.
+            This is why I plan on adding information about other investments (real estate, bonds, hedge funds, VC, etc),
+            investment strategies, and dangerous behavioral biases to watch out for.
+          </p>
+          <h2 class="text-center">Instructions</h2>
+          <ol>
             <li>
-              This tools is made to help you find symbols worth investing in
+              Select a start and end date using the calendar wiget at the top
             </li>
             <li>
-              You can search for a symbol in the search bar (use ! to search for
-              all symbols)
+              Press the refresh button to load the data from the server (~15s)
             </li>
             <li>
-              Filter the results on the right hand side by adjusting the price
-              and volume parameters
+              On the right you will see all available companies with their corresponding data
             </li>
-          </ul>
+            <li>
+              You can press on a company's name to plot it and use the plus sign to compare it with other companies
+            </li>
+            <li>
+              You can search for specific companies using the search bar or the price and volume sliders at the top
+            </li>
+            <li>
+              Finally, if there's a company you like, you can favorite by pressing on the star. To view your favorites
+              simply press on the toggle next to the search bar
+            </li>
+          </ol>
         </article>
       {:else}
         <TickerChart
@@ -332,5 +352,6 @@
       --sdt-btn-header-bg-hover: hsl(var(--b3));
       --sdt-clock-bg: hsl(var(--b3));
       --sdt-shadow: rgb(93, 93, 93);
+      --sdt-disabled-date: hsl(var(--er));
   }
 </style>
