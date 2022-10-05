@@ -186,7 +186,7 @@
             />
           </svg>
         {:else}
-          <Moon color="hsl(var(--bc))" size="24" unit="px"/>
+          <Moon color="hsl(var(--nc))" size="24" unit="px"/>
         {/if}
       </button>
       <div class="basis-1/6 self-center flex-col mx-4">
@@ -325,15 +325,12 @@
 
 <style>
   :global(.my-theme) {
-    --sdt-primary: hsl(var(--b3));
-    --sdt-color: hsl(var(--bc));
-    --sdt-color-selected: hsl(var(--bc));
-    --sdt-bg-main: hsl(var(--b1));
-    --sdt-bg-today: hsl(var(--b1));
-    --sdt-btn-bg-hover: hsl(var(--b3));
-    --sdt-btn-header-bg-hover: hsl(var(--b3));
-    --sdt-clock-bg: hsl(var(--n));
-    --sdt-clock-bg-minute: hsl(var(--n));
-    --sdt-shadow: rgb(93, 93, 93);
+      --sdt-primary: hsl(var(--bc));
+      --sdt-color: hsl(var(--bc));
+      --sdt-bg-main: hsl(var(--b1));
+      --sdt-btn-bg-hover: hsl(var(--b3));
+      --sdt-btn-header-bg-hover: hsl(var(--b3));
+      --sdt-clock-bg: hsl(var(--b3));
+      --sdt-shadow: rgb(93, 93, 93);
   }
 </style>
