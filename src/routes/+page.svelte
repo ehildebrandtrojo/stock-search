@@ -42,15 +42,14 @@
   async function fetch_data() {
     const to_utc = date => Date.parse(new Date(date.replace(" ", "T")).toISOString());
     fetching_data = true;
-		await fetch(`/api/stock-data/${to_utc(start_date)}to${to_utc(end_date)}`).then(response => {
-      if (response.status >= 400 && response.status < 600) {
-        throw new Error("Bad response from server");
-      }
-      return response;
-    }).then(returnResponse => {
-      returnResponse.json().then(stock_data => data = stock_data);
+		await fetch(`/api/stock-data/${to_utc(start_date)}to${to_utc(end_date)}`).then(returnResponse => {
+      returnResponse.json().then(stock_data => {
+        data = stock_data;
+      }).catch((error) => {
+        console.log('File Error', error)
+      });
     }).catch((error) => {
-      console.log(error)
+      console.log('Server Error', error)
     });
     fetching_data = false;
   }

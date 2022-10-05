@@ -14,7 +14,7 @@ export async function GET({ params }) {
       $gte: parseInt(params.start),
       $lte: parseInt(params.end)
     }
-  }).sort({time : 1}).toArray();
+  }).sort({time : 1}).allowDiskUse().toArray();
   client.close();
   
   let chart_data = {}
@@ -22,6 +22,11 @@ export async function GET({ params }) {
     const prev = symbol in chart_data ? chart_data[symbol] : { times : [], prices : [], vols : []}
     chart_data[symbol] = {times : [...prev.times, time], prices : [...prev.prices, data.at(0)], vols : [...prev.vols, data.at(1) / 1000]}
   }
+
+  // Delete queries which are less than 2 entries
+  Object.keys(chart_data).forEach(key => {
+    if (chart_data[key].times.length < 2) delete chart_data[key];
+  });
 
   // Sort data based on profit loss
   const profitloss = (prices) => (prices.at(-1) - prices.at(0)) / prices.at(0);
