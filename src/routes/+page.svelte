@@ -115,7 +115,7 @@
 
 <div class="w-screen h-screen flex flex-col">
   <div class="flex items-end justify-between mx-2 mb-2">
-    <div class="basis-1/6 flex items-center mx-2">
+    <div class="basis-1/6 flex items-center mx-2" on:click={() => selected_symbols.set([])}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-12 w-12"
@@ -209,7 +209,7 @@
           range
           float
           prefix="$"
-          step={400}
+          step={10}
           min={minprice}
           max={maxprice}
           bind:values={price_slider}
@@ -222,7 +222,7 @@
           range
           float
           suffix=""
-          step={300}
+          step={500}
           min={minvol}
           max={maxvol}
           bind:values={vol_slider}
@@ -234,9 +234,9 @@
   <div class="grow overflow-y-auto flex flex-row">
     <div class="grow w-1 rounded-3xl border-4 border-base-300 m-4 p-6">
       {#if !$selected_symbols.length}
-        <div class="flex justify-center">
-          <article class="prose ds-prose 2xl:prose-lg">
-            <h3 class="text-center">Motivation</h3>
+        <div class="flex justify-center items-stretch">
+          <article class="min-w-[80%] prose ds-prose 2xl:prose-lg">
+            <h4 class="text-center">Motivation</h4>
             <p class="text-justify">
               This project started due to my frustrations when using other ticker search websites.
               I saw it as a great opportunity to learn web dev while incorporating ideas from my classes.
@@ -244,18 +244,17 @@
               This is why I plan on adding information about other investments (real estate, bonds, hedge funds, VC, etc),
               investment strategies, and dangerous behavioral biases to watch out for.
             </p>
-            <h3 class="text-center">Instructions</h3>
+            <h4 class="text-center">Instructions</h4>
             <ol>
               <li>
                 Select a start and end date using the calendar wiget at the top
               </li>
               <li>
-                Press the refresh button to load the data from the server (~15s).
-                If the server connection is too long, Vercel (hosting company) will timeout the connection; try again by re-selecting
-                a smaller range of time and pressing the red error icon
+                Press the refresh button to load the data from the server.
+                If the requested data exceeds 5MB, a red error icon will show up; try again with a smaller range of time
               </li>
               <li>
-                On the right you will see all available companies with their corresponding data
+                On the right you will see all available companies (450+) and their data
               </li>
               <li>
                 You can press on a company's name to plot it and use the plus sign to compare it with other companies
@@ -264,8 +263,7 @@
                 You can search for specific companies using the search bar or the price and volume sliders at the top
               </li>
               <li>
-                Finally, if there's a company you like, you can favorite by pressing on the star. To view your favorites
-                simply press on the toggle next to the search bar
+                If there's a company you like, add it to your favorites by pressing on the star
               </li>
             </ol>
           </article>
