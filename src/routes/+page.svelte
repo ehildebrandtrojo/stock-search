@@ -50,7 +50,7 @@
       }).catch((error) => {
         console.warn(error)
         fetch_error = true;
-        console.log(fetch_error)
+        alert("The data you requested exceeded Vercel's (hosting company) size/time limits.\nTry again with a smaller range of time.")
       });
     }).catch((error) => {
       console.log('Server Error', error)
@@ -115,7 +115,7 @@
 
 <div class="w-screen h-screen flex flex-col">
   <div class="flex items-end justify-between mx-2 mb-2">
-    <div class="basis-1/6 flex items-center mx-2" on:click={() => selected_symbols.set([])}>
+    <div class="basis-1/6 flex items-center self-stretch mx-2" on:click={() => selected_symbols.set([])}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-12 w-12"
@@ -130,7 +130,7 @@
           d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
-      <article class="prose ds-prose self-center prose-sm ml-2">
+      <article class="prose ds-prose prose-sm ml-2">
         <h1>Stock Search</h1>
       </article>
     </div>
@@ -138,8 +138,8 @@
       <div class="basis-2/4 ds-form-control mx-4">
         <!-- svelte-ignore a11y-label-has-associated-control -->
         <label class="ds-label">
-          <span class="ds-label-text">Start date</span>
-          <span class="ds-label-text">End date</span>
+          <span class="ds-label-text text-xs">Start date</span>
+          <span class="ds-label-text text-xs">End date</span>
         </label>
         <label class="ds-input-group">
           <SveltyPicker
@@ -240,13 +240,15 @@
     <div class="grow w-1 rounded-3xl border-4 border-base-300 m-4 p-6">
       {#if !$selected_symbols.length}
         <div class="flex justify-center items-stretch">
-          <article class="min-w-[80%] prose ds-prose prose-sm 2xl:prose-lg">
+          <article class="min-w-[90%] prose ds-prose prose-sm xl:prose-base 2xl:prose-lg">
             <h4 class="text-center">Motivation</h4>
             <p class="text-justify">
-              This project started due to my frustrations when using other ticker search websites.
-              I saw it as a great opportunity to learn web dev while incorporating ideas from my classes.
-              My ultimate goal for the website is for it to be a place where people can learn about tried and true investment strategies.
-              This is why I plan on adding information about other investments (real estate, bonds, hedge funds, VC, etc),
+              Last semester, in my Intro to Finance class, I learned about portoflio optimization and common trading biases.
+              I thought about how all of this information could help people avoid losing money when investing.
+              At the time I also wanted to learn web dev. Alas, this project was born.
+              So far I have created a functional ticker search website.
+              My next goal is to add a portoflio optimization widget based on a user's favorited symbols.
+              The ultimate goal is to create a hub for retail investors where people can learn about various investments classes,
               investment strategies, and dangerous behavioral biases to watch out for.
             </p>
             <h4 class="text-center">Instructions</h4>
@@ -255,8 +257,7 @@
                 Select a start and end date using the calendar widget at the top
               </li>
               <li>
-                Press the refresh button to load the data from the server.
-                If the requested data exceeds 5MB, a red error icon will show up; try again with a smaller range of time
+                Press the refresh button to load the data from the server
               </li>
               <li>
                 On the right you will see all available companies (450+) and their data
@@ -283,7 +284,7 @@
     </div>
     <!-- Scroll wrapper -->
     <div
-      class="w-[30rem] rounded-3xl border-4 border-base-300 m-4 p-6 flex flex-col"
+      class="w-[35%] rounded-3xl border-4 border-base-300 m-4 p-5 flex flex-col"
     >
       <!-- Sidebar -->
       <div class="flex mb-4">

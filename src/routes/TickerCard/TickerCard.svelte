@@ -38,10 +38,10 @@
   }
 </script>
 
-<div class="flex place-items-center rounded-lg my-2 hover:bg-base-200">
+<div class="flex items-center justify-items-start rounded-lg my-2 hover:bg-base-200">
   {#if !$selected_symbols.includes(symbol)}
     <button
-      class="basis-1/12 self-stretch mx-2"
+      class="basis-1/12 self-stretch ml-2"
       on:click={() => add(symbol, selected_symbols)}
     >
       <svg
@@ -59,7 +59,7 @@
     </button>
   {:else}
     <button
-      class="basis-1/12 self-stretch mx-2"
+      class="basis-1/12 self-stretch ml-2"
       on:click={() => remove(symbol, selected_symbols)}
     >
       <svg
