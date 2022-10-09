@@ -241,7 +241,7 @@
       {#if !$selected_symbols.length}
         <div class="flex justify-center items-stretch">
           <article class="min-w-[90%] prose ds-prose prose-sm xl:prose-base 2xl:prose-lg">
-            <h4 class="text-center">Motivation</h4>
+            <h3 class="text-center">Motivation</h3>
             <p class="text-justify">
               Last semester, in my Intro to Finance class, I learned about portoflio optimization and common trading biases.
               I thought about how all of this information could help people avoid losing money when investing.
@@ -251,7 +251,7 @@
               The ultimate goal is to create a hub for retail investors where people can learn about various investments classes,
               investment strategies, and dangerous behavioral biases to watch out for.
             </p>
-            <h4 class="text-center">Instructions</h4>
+            <h3 class="text-center">Instructions</h3>
             <ol>
               <li>
                 Select a start and end date using the calendar widget at the top
@@ -284,7 +284,7 @@
     </div>
     <!-- Scroll wrapper -->
     <div
-      class="w-[35%] rounded-3xl border-4 border-base-300 m-4 p-5 flex flex-col"
+      class="w-[35%] max-w-[35rem] rounded-3xl border-4 border-base-300 m-4 p-5 flex flex-col"
     >
       <!-- Sidebar -->
       <div class="flex mb-4">
