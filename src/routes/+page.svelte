@@ -29,8 +29,8 @@
   const end_ago = new Date();
   end_ago.setDate(end_ago.getDate() - 4);
   
-  let start_date = "2022-09-29 23:59" // date_string(start_ago);
-  let end_date = "2022-09-30 23:59" // date_string(end_ago);
+  let start_date = "2022-09-29 23:59";
+  let end_date = "2022-09-30 23:59";
 
   // Sliders
   let minprice, maxprice, minvol, maxvol;
@@ -136,6 +136,11 @@
     </div>
     <div class="basis-5/6 shrink flex items-end justify-end">
       <div class="basis-2/4 ds-form-control mx-4">
+        <!-- svelte-ignore a11y-label-has-associated-control -->
+        <label class="ds-label">
+          <span class="ds-label-text">Start date</span>
+          <span class="ds-label-text">End date</span>
+        </label>
         <label class="ds-input-group">
           <SveltyPicker
             inputClasses="w-1/2 ds-form-control ds-input ds-input-bordered"
@@ -235,7 +240,7 @@
     <div class="grow w-1 rounded-3xl border-4 border-base-300 m-4 p-6">
       {#if !$selected_symbols.length}
         <div class="flex justify-center items-stretch">
-          <article class="min-w-[80%] prose ds-prose 2xl:prose-lg">
+          <article class="min-w-[80%] prose ds-prose prose-sm 2xl:prose-lg">
             <h4 class="text-center">Motivation</h4>
             <p class="text-justify">
               This project started due to my frustrations when using other ticker search websites.
@@ -247,7 +252,7 @@
             <h4 class="text-center">Instructions</h4>
             <ol>
               <li>
-                Select a start and end date using the calendar wiget at the top
+                Select a start and end date using the calendar widget at the top
               </li>
               <li>
                 Press the refresh button to load the data from the server.
