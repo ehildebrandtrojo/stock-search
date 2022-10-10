@@ -237,11 +237,56 @@
     </div>
   </div>
   <div class="grow overflow-y-auto flex flex-row">
-    <div class="grow w-1 rounded-3xl border-4 border-base-300 m-4 p-6">
+    <div class="grow w-1 overflow-y-auto rounded-3xl border-4 border-base-300 m-4 p-6">
       {#if !$selected_symbols.length}
-        <div class="flex justify-center items-stretch">
-          <article class="min-w-[90%] prose ds-prose prose-sm xl:prose-base 2xl:prose-lg">
-            <h3 class="text-center">Motivation</h3>
+        <div class="flex flex-col justify-center">
+          <div class="ds-carousel w-full">
+            <div id="item1" class="ds-carousel-item w-full">
+              <article class="min-w-[95%] prose ds-prose xl:prose-lg">
+                <h2 class="text-center">Motivation</h2>
+                <p class="text-justify">
+                  Last semester, in my Intro to Finance class, I learned about portoflio optimization and common trading biases.
+                  I thought about how all of this information could help people avoid losing money when investing.
+                  At the time I also wanted to learn web dev. Alas, this project was born.
+                  So far I have created a functional ticker search website.
+                  My next goal is to add a portoflio optimization widget based on a user's favorited symbols.
+                  The ultimate goal is to create a hub for retail investors where people can learn about various investments classes,
+                  investment strategies, and dangerous behavioral biases to watch out for.
+                </p>
+              </article>
+            </div>
+            <div id="item2" class="ds-carousel-item w-full">
+              <article class="min-w-[95%] prose ds-prose xl:prose-lg">
+                <h2 class="text-center">Tutorial</h2>
+                <ol>
+                  <li>
+                    Select a start and end date using the calendar widget at the top
+                  </li>
+                  <li>
+                    Press the refresh button to load the data from the server
+                  </li>
+                  <li>
+                    On the right you will see all available companies (450+) and their data
+                  </li>
+                  <li>
+                    You can press on a company's name to plot it and use the plus sign to compare it with other companies
+                  </li>
+                  <li>
+                    You can search for specific companies using the search bar or the price and volume sliders at the top
+                  </li>
+                  <li>
+                    If there's a company you like, add it to your favorites by pressing on the star
+                  </li>
+                </ol>
+              </article>
+            </div>
+          </div> 
+          <div class="flex justify-center w-full py-2 gap-2">
+            <a href="#item1" class="ds-btn ds-btn-xs">Motivation</a> 
+            <a href="#item2" class="ds-btn ds-btn-xs">Tutorial</a> 
+          </div>
+          <!-- <article class="min-w-[95%] prose ds-prose xl:prose-lg">
+            <h4 class="text-center">Motivation</h4>
             <p class="text-justify">
               Last semester, in my Intro to Finance class, I learned about portoflio optimization and common trading biases.
               I thought about how all of this information could help people avoid losing money when investing.
@@ -251,7 +296,7 @@
               The ultimate goal is to create a hub for retail investors where people can learn about various investments classes,
               investment strategies, and dangerous behavioral biases to watch out for.
             </p>
-            <h3 class="text-center">Instructions</h3>
+            <h4 class="text-center">Tutorial</h4>
             <ol>
               <li>
                 Select a start and end date using the calendar widget at the top
@@ -272,7 +317,7 @@
                 If there's a company you like, add it to your favorites by pressing on the star
               </li>
             </ol>
-          </article>
+          </article> -->
         </div>
       {:else}
         <TickerChart
