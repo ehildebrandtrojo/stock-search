@@ -242,7 +242,7 @@
         <div class="flex flex-col justify-center">
           <div class="ds-carousel w-full">
             <div id="item1" class="ds-carousel-item w-full">
-              <article class="min-w-[95%] prose ds-prose xl:prose-lg">
+              <article class="min-w-[80%] prose ds-prose xl:prose-lg">
                 <h2 class="text-center">Motivation</h2>
                 <p class="text-justify">
                   Last semester, in my Intro to Finance class, I learned about portoflio optimization and common trading biases.
@@ -256,7 +256,7 @@
               </article>
             </div>
             <div id="item2" class="ds-carousel-item w-full">
-              <article class="min-w-[95%] prose ds-prose xl:prose-lg">
+              <article class="min-w-[80%] prose ds-prose xl:prose-lg">
                 <h2 class="text-center">Tutorial</h2>
                 <ol>
                   <li>
