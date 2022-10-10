@@ -241,7 +241,7 @@
       {#if !$selected_symbols.length}
         <div class="flex flex-col justify-center">
           <div class="ds-carousel w-full">
-            <div id="item1" class="ds-carousel-item w-full">
+            <div id="item1" class="ds-carousel-item w-full justify-center">
               <article class="min-w-[80%] prose ds-prose xl:prose-lg">
                 <h2 class="text-center">Motivation</h2>
                 <p class="text-justify">
@@ -255,7 +255,7 @@
                 </p>
               </article>
             </div>
-            <div id="item2" class="ds-carousel-item w-full">
+            <div id="item2" class="ds-carousel-item w-full justify-center">
               <article class="min-w-[80%] prose ds-prose xl:prose-lg">
                 <h2 class="text-center">Tutorial</h2>
                 <ol>
