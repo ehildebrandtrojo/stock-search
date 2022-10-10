@@ -284,7 +284,7 @@
     </div>
     <!-- Scroll wrapper -->
     <div
-      class="w-[35%] max-w-[35rem] rounded-3xl border-4 border-base-300 m-4 p-5 flex flex-col"
+      class="w-[35%] min-w-[27rem] max-w-[35rem] rounded-3xl border-4 border-base-300 m-4 p-5 flex flex-col"
     >
       <!-- Sidebar -->
       <div class="flex mb-4">
