@@ -33,6 +33,8 @@
     Tooltip
   );
 
+  let backtest_code = '';
+
   const defaultColors = [
     "#3366CC",
     "#DC3912",
@@ -79,18 +81,22 @@
       datasets: [],
     };
 
+    let colors = {}
     for (const [symbol, ticker] of Object.entries(chart_data)) {
+      colors[symbol] = defaultColors.at(data_params.datasets.length % defaultColors.length)
+
       data_params.datasets.push({
         label: symbol,
         data: xypairs(ticker.times, prices ? ticker.prices : ticker.vols),
-        borderColor: defaultColors.at(data_params.datasets.length % defaultColors.length),
+        borderColor: symbol.slice(-9) == '-backtest' ? colors[symbol.slice(0, -9)] : colors[symbol],
+        borderDash: symbol.slice(-9) == '-backtest' ? [10, 5] : [],
         showLine: pointRadius == 0 ? true : false,
         pointRadius,
       });
     }
 
     return data_params;
-  }
+  };
 
   function generateOptions(ylabel, prefix, suffix, color_mode, scale) {
     return {
@@ -192,7 +198,31 @@
         },
       },
     };
-  }
+  };
+
+  function backtest(backtest_code) {
+    // Remove previous backtests
+    for (const [symbol, _] of Object.entries(chart_data)) {
+      if (symbol.slice(-9) == '-backtest')
+        delete chart_data[symbol]
+    }
+
+    const rule = new Function ('prices', backtest_code);
+    
+    for (const [symbol, ticker] of Object.entries(chart_data)) {
+      const earnings = [ticker.prices.at(0)]
+      let invest = 0
+      for (let i = 1; i < ticker.prices.length; i++) {
+        invest = rule(ticker.prices.slice(0, i))
+        earnings.push(earnings.at(i-1) + invest * (ticker.prices.at(i) - ticker.prices.at(i-1)))
+      }
+      chart_data[symbol + '-backtest'] = {
+        'times' : ticker.times, 
+        'prices' : earnings, 
+        'vols' : Array(ticker.prices.length).fill(NaN)
+      }
+    }
+  };
 </script>
 
 <div class="h-full">
@@ -221,11 +251,28 @@
         options={generateOptions("Volume", "", "M", color_mode, "logarithmic")}
       />
     </div>
+    <div id="item5" class="ds-carousel-item flex-col w-full">
+      <div class="ds-mockup-code grow flex">
+          <textarea class="ds-textarea font-mono grow m-8" bind:value={backtest_code}
+            placeholder="// Write your algo using `prices` returning [0, 1]
+
+// e.g. for Moving Average
+// Create function to calculate average
+const average = array => array.reduce((a, b) => a + b, 0) / array.length;
+
+// If short-term average is above long-term average invest
+const [short, long] = [5, 15]
+if (prices.length < long) return 0;
+return average(prices.slice(-short)) > average(prices.slice(-long));"></textarea>
+      </div>
+      <button class="ds-btn m-4" on:click={() => backtest(backtest_code)}>Execute</button>
+    </div>
   </div>
   <div class="flex justify-end w-full h-[5%] py-2 gap-2">
     <a href="#item1" class="ds-btn ds-btn-xs">% Gain</a>
     <a href="#item2" class="ds-btn ds-btn-xs">Price ∆</a>
     <a href="#item3" class="ds-btn ds-btn-xs">Prices</a>
     <a href="#item4" class="ds-btn ds-btn-xs">Volume</a>
+    <a href="#item5" class="ds-btn ds-btn-xs">Backtest</a>
   </div>
 </div>
