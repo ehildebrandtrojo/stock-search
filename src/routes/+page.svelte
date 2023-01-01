@@ -245,13 +245,22 @@
               <article class="min-w-[80%] prose ds-prose xl:prose-lg">
                 <h2 class="text-center">Motivation</h2>
                 <p class="text-justify">
-                  Last semester, in my Intro to Finance class, I learned about portoflio optimization and common trading biases.
-                  I thought about how all of this information could help people avoid losing money when investing.
-                  At the time I also wanted to learn web dev. Alas, this project was born.
-                  So far I have created a functional ticker search website.
-                  My next goal is to add a portoflio optimization widget based on a user's favorited symbols.
-                  The ultimate goal is to create a hub for retail investors where people can learn about various investments classes,
-                  investment strategies, and dangerous behavioral biases to watch out for.
+                  Since I did not get the chance to take any web development courses
+                  throughout college, I decided to teach myself by building a stock backtesting website.
+                  After learning about the different JS frameworks, I decided to build the website with
+                  <a href="https://svelte.dev">Svelte</a> & <a href="https://kit.svelte.dev">Svelte Kit</a>,
+                  due to their intuitiveness. The UI was constructed using a mix of
+                  <a href="https://tailwindcss.com">Tailwind CSS</a> and <a href="https://daisyui.com">DaisyUI</a> as well as
+                  the following elements <a href="https://mskocik.github.io/svelty-picker/?ref=madewithsvelte.com">Svelty Picker</a>,
+                  <a href="https://github.com/simeydotme/svelte-range-slider-pips">Range Sliders</a>,
+                  and <a href="https://github.com/Schum123/svelte-loading-spinners">Loading Spinners</a>.
+                  In order to display the ticker data, I learned how to use <a href="https://www.chartjs.org">Chart.js</a>.
+                  Due to the large amount of data, the ticker data is stored on the cloud using 
+                  <a href="https://www.mongodb.com/home">MongoDB</a>.
+                  When loading stock data, the frontend makes an API fetch request to the backend with the start
+                  and end dates selected by the user.
+                  The backend then fetches the corresponding data from the MongoDB database.
+                  Users also have the option to test out their own trading algos by using the 'Backtest' tab.
                 </p>
               </article>
             </div>
@@ -270,6 +279,9 @@
                   </li>
                   <li>
                     You can press on a company's name to plot it and use the plus sign to compare it with other companies
+                  </li>
+                  <li>
+                    The backtest tab allows you to test your own trading strategies on your selected symbols
                   </li>
                   <li>
                     You can search for specific companies using the search bar or the price and volume sliders at the top
