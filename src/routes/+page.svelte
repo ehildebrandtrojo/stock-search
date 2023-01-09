@@ -281,13 +281,13 @@
                     You can press on a company's name to plot it and use the plus sign to compare it with other companies
                   </li>
                   <li>
-                    The backtest tab allows you to test your own trading strategies on your selected symbols
+                    While plotting a company's prices, at the bottom right, the backtest tab allows you to test your own trading strategies on your selected symbols
                   </li>
                   <li>
                     You can search for specific companies using the search bar or the price and volume sliders at the top
                   </li>
                   <li>
-                    If there's a company you like, add it to your favorites by pressing on the star
+                    If there's a company you like, add it to your favorites by pressing on the star; you can view your favorites with the toggle
                   </li>
                 </ol>
               </article>
