@@ -48,7 +48,7 @@
   let backtest_title = '';
 
   let algorithms = {
-    'Previous' : `return prices.at(-1) > prices.at(-2);`,
+    'Yesterday' : `return prices.at(-1) > prices.at(-2);`,
     'Moving Average' : `// Each data point corresponds to a 30 min interval
 // Needs at least ~7.5 hrs of data
 
