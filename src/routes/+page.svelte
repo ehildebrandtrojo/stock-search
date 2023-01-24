@@ -245,8 +245,8 @@
               <article class="min-w-[80%] prose ds-prose xl:prose-lg">
                 <h2 class="text-center">Motivation</h2>
                 <p class="text-justify">
-                  Since I did not get the chance to take any web development courses
-                  throughout college, I decided to teach myself by building a stock backtesting website.
+                  Throughout college I only had a bit of exposure to web development.
+                  Given how versatile of a field it is, I decided to teach myself by building a stock backtesting website.
                   After learning about the different JS frameworks, I decided to build the website with
                   <a href="https://svelte.dev">Svelte</a> & <a href="https://kit.svelte.dev">Svelte Kit</a>,
                   due to their intuitiveness. The UI was constructed using a mix of
