@@ -29,8 +29,8 @@
   const end_ago = new Date();
   end_ago.setDate(end_ago.getDate() - 4);
   
-  let start_date = "2022-12-29 23:59";
-  let end_date = "2022-12-30 23:59";
+  let start_date = "2023-01-23 23:59";
+  let end_date = "2023-01-24 23:59";
 
   // Sliders
   let minprice, maxprice, minvol, maxvol;
