@@ -172,7 +172,7 @@
             inputClasses="w-1/2 ds-form-control ds-input ds-input-bordered"
             theme="my-theme"
             startDate="2022-04-01 00:00"
-            endDate="2022-12-30 23:59"
+            endDate="2023-02-03 23:59"
             todayBtn={false}
             clearBtn={false}
             format="yyyy-mm-dd hh:ii"
