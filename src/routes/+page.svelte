@@ -275,7 +275,7 @@
                     Press the refresh button to load the data from the server
                   </li>
                   <li>
-                    On the right you will see all available companies (450+) and their data
+                    On the right you will see all available companies (450+) and their data with a higher frequency than what Google or Yahoo offer
                   </li>
                   <li>
                     You can press on a company's name to plot it and use the plus sign to compare it with other companies

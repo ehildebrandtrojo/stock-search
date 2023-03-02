@@ -303,7 +303,7 @@ return average(prices.slice(-short)) > average(prices.slice(-long));`,
       <div class="ds-mockup-code grow flex flex-col">
         <input type="text" placeholder="Title" class="ds-input font-mono mx-4 my-2" bind:value={backtest_title} />
         <textarea class="ds-textarea font-mono grow mx-4 my-2" bind:value={backtest_logic}
-          placeholder="// Write your algo using `prices` returning [0, 1]"></textarea>
+          placeholder="// Write your algo using `prices` returning [0, 1] or select one from the Algorithm tab"></textarea>
       </div>
       <div class="flex">
         <div class="grow"></div>
