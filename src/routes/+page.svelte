@@ -55,7 +55,9 @@
     }).catch((error) => {
       console.log('Server Error', error)
     });
-    fetching_data = false;
+    setTimeout(() => {
+      fetching_data = false;
+    }, 5000); 
   }
 
   // Returns true if a ticker should be displayed on the RHS
