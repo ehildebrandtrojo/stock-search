@@ -29,8 +29,8 @@
   const end_ago = new Date();
   end_ago.setDate(end_ago.getDate() - 4);
   
-  let start_date = "2023-04-05 23:59";
-  let end_date = "2023-04-06 23:59";
+  let start_date = "2023-04-13 23:59";
+  let end_date = "2023-04-14 23:59";
 
   // Sliders
   let minprice, maxprice, minvol, maxvol;
@@ -174,7 +174,7 @@
             inputClasses="w-1/2 ds-form-control ds-input ds-input-bordered"
             theme="my-theme"
             startDate="2022-04-01 00:00"
-            endDate="2023-04-07 23:59"
+            endDate="2023-04-14 23:59"
             todayBtn={false}
             clearBtn={false}
             format="yyyy-mm-dd hh:ii"
