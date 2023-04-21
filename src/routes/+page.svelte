@@ -21,16 +21,21 @@
   let fetch_error = false;
 
   // Dates
-  // Returns date as yyyy-mm-dd hh:MM:ss string
-  const date_string = date => new Date(date.toString().split('GMT')[0]+' UTC').toISOString().split('.')[0].replace("T", " ");
+  let end_date = "";
+  let start_date = "";
 
-  const start_ago = new Date();
-  start_ago.setDate(start_ago.getDate() - 5);
-  const end_ago = new Date();
-  end_ago.setDate(end_ago.getDate() - 4);
-  
-  let start_date = "2023-04-13 23:59";
-  let end_date = "2023-04-14 23:59";
+  // Returns date as yyyy-mm-dd hh:MM:ss string
+  const date_string = date => new Date(date.toString().split('GMT')[0]+' UTC').toISOString().split('.')[0].replace("T", " ").slice(0, 10) + " 23:59";
+
+  // Load last day's data by default
+  onMount(async () => {
+    const end_epoch = await fetch_latest_date(); // Grab latest date from MongoDB
+
+    end_date = date_string(new Date(end_epoch)); 
+    start_date = date_string(new Date(end_epoch - 8.64e+7)); // Subtract 1 day from end_day
+
+	  await fetch_data();
+	});
 
   // Sliders
   let minprice, maxprice, minvol, maxvol;
@@ -38,6 +43,14 @@
 
   // Favorites
   let show_favorites = false;
+
+  // Fetches latest available date of data
+  async function fetch_latest_date() {
+    return fetch('/api/stock-data/latest')
+      .then( response => response.json())
+      .then( responseJson => {return responseJson})
+      .catch( error => {return Date.now()});
+  }
 
   // Fetches data based on stat_date and end_date using the api
   async function fetch_data() {
@@ -104,11 +117,6 @@
     return [minmax(last_prices), minmax(last_vols)];
   }
 
-  // Load past week's data by default
-  onMount(async () => {
-	  await fetch_data();
-	});
-
   // Update min/max if data changes
   $: [[minprice, maxprice], [minvol, maxvol]] = update_minmax(data);
   // Update sliders  to min/max of data
@@ -174,7 +182,7 @@
             inputClasses="w-1/2 ds-form-control ds-input ds-input-bordered"
             theme="my-theme"
             startDate="2022-04-01 00:00"
-            endDate="2023-04-14 23:59"
+            endDate={date_string(new Date())}
             todayBtn={false}
             clearBtn={false}
             format="yyyy-mm-dd hh:ii"
