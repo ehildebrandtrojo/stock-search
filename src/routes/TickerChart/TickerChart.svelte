@@ -82,8 +82,19 @@ return average(prices.slice(-short)) > average(prices.slice(-long));`,
   const pct_fn = (y, wrt) => (100 * (y - wrt)) / wrt;
 
   function generate_data(chart_data, fn, pointRadius = 0, prices = true) {
+    function elementwise_mult(arr1, arr2) {
+      if (arr1.length !== arr2.length) {
+        throw new Error(message || "Array sizes not equal");
+      }
+      let finalArr = [];
+      for (var i = 0; i < arr1.length; i++) {
+        finalArr[i] = arr1[i] * arr2[i];
+      }
+      return finalArr
+    }
+
     function xypairs(arr1, arr2) {
-      if (!arr1 === arr2) {
+      if (arr1.length !== arr2.length) {
         throw new Error(message || "Array sizes not equal");
       }
       const pair = [];
@@ -103,7 +114,7 @@ return average(prices.slice(-short)) > average(prices.slice(-long));`,
 
       data_params.datasets.push({
         label: symbol,
-        data: xypairs(ticker.times, prices ? ticker.prices : ticker.vols),
+        data: xypairs(ticker.times, prices ? ticker.prices : elementwise_mult(ticker.prices, ticker.vols)),
         borderColor: symbol.includes('-') ? colors[symbol.slice(0, symbol.indexOf('-'))] : colors[symbol],
         borderDash: symbol.includes('-') ? [10, 5] : [],
         showLine: pointRadius == 0 ? true : false,
@@ -273,8 +284,8 @@ return average(prices.slice(-short)) > average(prices.slice(-long));`,
     </div>
     <div id="item4" class="ds-carousel-item w-full">
       <Scatter
-        data={generate_data(chart_data, curr_fn, 1.5, false)}
-        options={generateOptions("Volume", "", "M", color_mode, "logarithmic")}
+        data={generate_data(chart_data, curr_fn, 0, false)}
+        options={generateOptions("VolxPrice", "$", "M", color_mode, "linear")}
       />
     </div>
     <div id="item5" class="ds-carousel-item flex-col w-full">
@@ -315,7 +326,7 @@ return average(prices.slice(-short)) > average(prices.slice(-long));`,
     <button class="ds-btn ds-btn-xs" on:click={() => goto("/#item1")}>% Gain</button>
     <button class="ds-btn ds-btn-xs" on:click={() => goto("/#item2")}>Price ∆</button>
     <button class="ds-btn ds-btn-xs" on:click={() => goto("/#item3")}>Prices</button>
-    <button class="ds-btn ds-btn-xs" on:click={() => goto("/#item4")}>Volume</button>
+    <button class="ds-btn ds-btn-xs" on:click={() => goto("/#item4")}>Volume × Price</button>
     <button class="ds-btn ds-btn-xs" on:click={() => goto("/#item5")}>Backtest</button>
   </div>
 </div>
