@@ -88,7 +88,7 @@ return average(prices.slice(-short)) > average(prices.slice(-long));`,
       }
       let finalArr = [];
       for (var i = 0; i < arr1.length; i++) {
-        finalArr[i] = arr1[i] * arr2[i];
+        finalArr[i] = arr1[i] * arr2[i] / 1000;
       }
       return finalArr
     }
@@ -285,7 +285,7 @@ return average(prices.slice(-short)) > average(prices.slice(-long));`,
     <div id="item4" class="ds-carousel-item w-full">
       <Scatter
         data={generate_data(chart_data, curr_fn, 0, false)}
-        options={generateOptions("VolxPrice", "$", "M", color_mode, "linear")}
+        options={generateOptions("Volume ($)", "$", "M", color_mode, "linear")}
       />
     </div>
     <div id="item5" class="ds-carousel-item flex-col w-full">
@@ -326,7 +326,7 @@ return average(prices.slice(-short)) > average(prices.slice(-long));`,
     <button class="ds-btn ds-btn-xs" on:click={() => goto("/#item1")}>% Gain</button>
     <button class="ds-btn ds-btn-xs" on:click={() => goto("/#item2")}>Price ∆</button>
     <button class="ds-btn ds-btn-xs" on:click={() => goto("/#item3")}>Prices</button>
-    <button class="ds-btn ds-btn-xs" on:click={() => goto("/#item4")}>Volume × Price</button>
+    <button class="ds-btn ds-btn-xs" on:click={() => goto("/#item4")}>Volume ($)</button>
     <button class="ds-btn ds-btn-xs" on:click={() => goto("/#item5")}>Backtest</button>
   </div>
 </div>

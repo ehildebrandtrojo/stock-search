@@ -250,7 +250,7 @@
         />
       </div>
       <div class="basis-1/6 self-center flex-col mr-2">
-        <p class="text-center">Volume (K)</p>
+        <p class="text-center">Volume (k)</p>
         <RangeSlider
           range
           float
