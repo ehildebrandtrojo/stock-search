@@ -20,6 +20,9 @@
   let end_date = "";
   let start_date = "";
 
+  // Profit loss
+  const profitloss = (prices) => (prices.at(-1) - prices.at(0)) / prices.at(0);
+
   // Returns date as yyyy-mm-dd hh:MM:ss string
   const date_string = date => new Date(date.toString().split('GMT')[0]+' UTC').toISOString().split('.')[0].replace("T", " ").slice(0, 10) + " 23:59";
 
@@ -61,6 +64,8 @@
         for (const [key, value] of Object.entries(stock_data)) {
           data[key] = value
         }
+        // Sort data based on profit loss
+        data = Object.fromEntries(Object.entries(data).sort((a, b) => profitloss(b.at(1).prices) - profitloss(a.at(1).prices)));
       }).catch((error) => {
         console.warn(error)
         fetch_error = true;
@@ -197,9 +202,9 @@
           <label class="ds-label">
             <span class="ds-label-text text-xs">Update</span>
           </label>
-          <select bind:value={fetch_all} class="w-32 ds-select ds-select-bordered">
+          <select bind:value={fetch_all} class="w-28 ds-select ds-select-bordered">
             <option value={1}>All</option>
-            <option value={0}>Selected</option>
+            <option value={0}>Plotted</option>
           </select>
         </div>
         <button class="ds-btn ds-btn-square mr-6" on:click={fetch_data}>

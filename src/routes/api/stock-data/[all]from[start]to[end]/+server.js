@@ -40,10 +40,6 @@ export async function POST({ params, request }) {
   Object.keys(chart_data).forEach(key => {
     if (chart_data[key].times.length < 2) delete chart_data[key];
   });
-
-  // Sort data based on profit loss
-  const profitloss = (prices) => (prices.at(-1) - prices.at(0)) / prices.at(0);
-  chart_data = Object.fromEntries(Object.entries(chart_data).sort((a, b) => profitloss(b.at(1).prices) - profitloss(a.at(1).prices)));
   
   return json(chart_data);
 }
