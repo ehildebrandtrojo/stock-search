@@ -1,4 +1,5 @@
 <script>
+  import { json } from '@sveltejs/kit';
   import { onMount } from 'svelte';
   import SveltyPicker from "svelty-picker";
   import RangeSlider from "svelte-range-slider-pips";
@@ -8,15 +9,10 @@
   import { selected_symbols, favorite_symbols } from "./stores.js";
 
   let search_bar = "";
-  let data = {
-    '' : {
-        times : [0, 0],
-        prices : [0, 0],
-        vols : [0, 0],
-    },
-  };
+  let data = {};
 
   // Fetching
+  let fetch_all = 1;
   let fetching_data = false;
   let fetch_error = false;
 
@@ -57,9 +53,14 @@
     const to_utc = date => Date.parse(new Date(date.replace(" ", "T")).toISOString());
     fetching_data = true;
     fetch_error = false;
-		await fetch(`/api/stock-data/${to_utc(start_date)}to${to_utc(end_date)}`).then(returnResponse => {
+		await fetch(`/api/stock-data/${fetch_all}from${to_utc(start_date)}to${to_utc(end_date)}`, {
+      method: 'POST',
+      body: JSON.stringify($selected_symbols),
+    }).then(returnResponse => {
       returnResponse.json().then(stock_data => {
-        data = stock_data;
+        for (const [key, value] of Object.entries(stock_data)) {
+          data[key] = value
+        }
       }).catch((error) => {
         console.warn(error)
         fetch_error = true;
@@ -145,7 +146,7 @@
       </article>
     </div>
     <div class="basis-5/6 shrink flex items-end justify-end">
-      <div class="basis-2/4 ds-form-control mx-4">
+      <div class="basis-5/12 ds-form-control mx-4">
         <!-- svelte-ignore a11y-label-has-associated-control -->
         <label class="ds-label">
           <span class="ds-label-text text-xs">Start date</span>
@@ -190,34 +191,46 @@
           />
         </label>
       </div>
-      <button class="basis-1/8 ds-btn ds-btn-square mr-6" on:click={fetch_data}>
-        {#if fetch_error}
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-red-500">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-          </svg>
-        {:else if !fetching_data}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M16.023 9.348h4.992v-.001M2.985
-              19.644v-4.992m0 0h4.992m-4.993 
-              0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 
-              9.865a8.25 8.25 0 0113.803-3.7l3.181 
-              3.182m0-4.991v4.99" 
-            />
-          </svg>
-        {:else}
-          <Moon color="hsl(var(--nc))" size="24" unit="px"/>
-        {/if}
-      </button>
+      <div class="basis-1/8 ds-btn-group items-end">
+        <div class="ds-form-control">
+          <!-- svelte-ignore a11y-label-has-associated-control -->
+          <label class="ds-label">
+            <span class="ds-label-text text-xs">Update</span>
+          </label>
+          <select bind:value={fetch_all} class="w-32 ds-select ds-select-bordered">
+            <option value={1}>All</option>
+            <option value={0}>Selected</option>
+          </select>
+        </div>
+        <button class="ds-btn ds-btn-square mr-6" on:click={fetch_data}>
+          {#if fetch_error}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-red-500">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
+          {:else if !fetching_data}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M16.023 9.348h4.992v-.001M2.985
+                19.644v-4.992m0 0h4.992m-4.993 
+                0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 
+                9.865a8.25 8.25 0 0113.803-3.7l3.181 
+                3.182m0-4.991v4.99" 
+              />
+            </svg>
+          {:else}
+            <Moon color="hsl(var(--nc))" size="24" unit="px"/>
+          {/if}
+        </button>
+      </div>
       <div class="basis-1/6 self-center flex-col mx-4">
         <p class="text-center">Price</p>
         <RangeSlider

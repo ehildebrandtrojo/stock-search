@@ -1,7 +1,9 @@
 import { error, json } from '@sveltejs/kit';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
-export async function GET({ params }) {
+export async function POST({ params, request }) {
+  const selected_symbols = await request.json();
+
 	// Connect to client
 	const uri = `mongodb+srv://user_1:SlDNHYeyzVGNgHxA@portfoliodashboardclust.cvksjhu.mongodb.net/?retryWrites=true&w=majority`;
 	const client = new MongoClient(uri);
@@ -9,12 +11,23 @@ export async function GET({ params }) {
 
   const collection = client.db("stock_data").collection("daily_stock_data");
   // Get data between two dates sorted from earliest to latest
-  const db_data = await collection.find({
-    time: {
-      $gte: parseInt(params.start),
-      $lte: parseInt(params.end)
-    }
-  }).sort({time : 1}).allowDiskUse().toArray();
+  let db_data;
+  if (parseInt(params.all)) {
+    db_data = await collection.find({
+      time: {
+        $gte: parseInt(params.start),
+        $lte: parseInt(params.end)
+      }
+    }).sort({time : 1}).allowDiskUse().toArray();
+  } else {
+    db_data = await collection.find({
+      symbol: { $in: selected_symbols },
+      time: {
+        $gte: parseInt(params.start),
+        $lte: parseInt(params.end)
+      }
+    }).sort({time : 1}).allowDiskUse().toArray();
+  }
   client.close();
   
   let chart_data = {}
