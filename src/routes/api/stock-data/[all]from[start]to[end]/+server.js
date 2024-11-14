@@ -5,7 +5,7 @@ export async function POST({ params, request }) {
   const selected_symbols = await request.json();
 
 	// Connect to client
-	const uri = `mongodb+srv://user_1:SlDNHYeyzVGNgHxA@portfoliodashboardclust.cvksjhu.mongodb.net/?retryWrites=true&w=majority`;
+	const uri = `mongodb+srv://user_1:test@portfoliodashboardclust.cvksjhu.mongodb.net/?retryWrites=true&w=majority`;
 	const client = new MongoClient(uri);
 	await client.connect();
 
