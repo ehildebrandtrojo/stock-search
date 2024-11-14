@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 
 export async function GET() {
   // Connect to client
-  const uri = `mongodb+srv://user_1:SlDNHYeyzVGNgHxA@portfoliodashboardclust.cvksjhu.mongodb.net/?retryWrites=true&w=majority`;
+  const uri = `mongodb+srv://user_1:test@portfoliodashboardclust.cvksjhu.mongodb.net/?retryWrites=true&w=majority`;
   const client = new MongoClient(uri);
   await client.connect();
 
